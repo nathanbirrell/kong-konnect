@@ -15,6 +15,7 @@ No setup or build tooling was modified. To get started:
 ## Assumptions
 
 * The Service Catalog list result is only used on this page. If it were used elsewhere, I would have moved that state into a Pinia store to be shared across the app. 
+* As a team we prefer to re-use existing components over creating new ones to match a design. This is why I used Kongponents for the majority of the UI, which diverge from the mocks slightly.
 * Pagination is client-side only
 
 ## To do
