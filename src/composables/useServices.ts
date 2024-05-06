@@ -17,8 +17,6 @@ export default function useServices({
   const loading = ref<boolean>(false)
   const error = ref<boolean>(false)
 
-  console.log({ searchQuery })
-
   const getServices = async () => {
     try {
       // Initialize loading state

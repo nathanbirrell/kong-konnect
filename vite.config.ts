@@ -24,4 +24,17 @@ export default defineConfig({
       '/api': 'http://localhost:4001',
     },
   },
+  // Define global constant replacements
+  define: {
+    'process.env.development': JSON.stringify('development'),
+    'process.env.production': JSON.stringify('production'),
+  },
+  build: {
+    commonjsOptions: {
+      include: [
+        /@kong\/kongponents/,
+        /node_modules/,
+      ],
+    },
+  },
 })

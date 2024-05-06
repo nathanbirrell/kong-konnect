@@ -1,15 +1,38 @@
 <template>
   <div class="service-catalog">
-    <h1>Service Catalog</h1>
-    <input
-      v-model="searchQuery"
-      class="search-input"
-      data-testid="search-input"
-      placeholder="Search services"
-    >
+    <div class="service-catalog__header">
+      <div class="service-catalog__description">
+        <h1>Service Hub</h1>
+
+        <p>
+          Organize services, manage and track versioning and API service
+          documentation. Learn more
+        </p>
+      </div>
+
+      <div class="service-catalog__controls">
+        <div class="k-input-wrapper mr-2">
+          <input
+            v-model="searchQuery"
+            class="k-input search-input"
+            data-testid="search-input"
+            placeholder="Search services"
+            type="search"
+          >
+        </div>
+
+        <k-button
+          appearance="creation"
+          icon="plus"
+        >
+          Service Package
+        </k-button>
+      </div>
+    </div>
+
     <ul
       v-if="services.length"
-      class="catalog"
+      class="service-catalog-items"
     >
       <li
         v-for="service in services"
@@ -61,11 +84,27 @@ export default defineComponent({
   padding: 0 20px;
 }
 
-.catalog {
+.service-catalog__header {
+  // TODO: setup app-wide breakpoints and use variable here
+  @media only screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: start;
+  }
+}
+
+.service-catalog__controls {
   display: flex;
-  flex-wrap: wrap;
+  padding-top: 2rem;
+}
+
+.service-catalog-items {
+  padding: 0;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-gap: 0.25rem;
   list-style: none;
-  margin: 20px 0 0 0;
 }
 
 .service {
@@ -73,7 +112,6 @@ export default defineComponent({
   border-radius: 10px;
   margin: 6px;
   padding: 8px 16px;
-  width: 200px;
 
   p:first-of-type {
     color: #333;
