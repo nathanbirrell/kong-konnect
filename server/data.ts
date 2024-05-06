@@ -21,6 +21,7 @@ const getDeveloper = (): Record<string, string> => developers[faker.number.int({
 
 // NOTE: For the search functionality created in `/server/app.ts` arrays may ONLY be the value of a top-level property
 const data = () => {
+  // TODO: consider sharing business entity types with frontend (ie "data: {services: Service[]}" here)
   const data: any = { services: [] }
 
   for (let i = 0; i < (Math.random() * 100) + 50; i++) {

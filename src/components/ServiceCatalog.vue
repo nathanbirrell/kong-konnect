@@ -24,27 +24,26 @@
         </div>
       </li>
     </ul>
-    <div
-      v-else
-      data-testid="no-results"
-    >
-      No services
-    </div>
+    <NoResults v-else>
+      No Services found.
+    </NoResults>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import useServices from '@/composables/useServices'
+import NoResults from './NoResults.vue'
 
 export default defineComponent({
   name: 'ServiceCatalog',
+  components: { NoResults },
   setup() {
-    // Import services from the composable
-    const { services, loading } = useServices()
-
     // Set the search string to a Vue ref
     const searchQuery = ref('')
+
+    // Import services from the composable
+    const { services, loading } = useServices({ searchQuery })
 
     return {
       services,
