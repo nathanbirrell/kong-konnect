@@ -12,7 +12,7 @@ export default function useServices({
   searchQuery,
 }: {
   searchQuery?: Ref<string>;
-}) {
+} = { searchQuery: undefined }) {
   const services = ref<Service[]>([])
   const loading = ref<boolean>(false)
   const error = ref<boolean>(false)

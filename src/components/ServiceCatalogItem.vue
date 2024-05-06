@@ -1,6 +1,7 @@
 <template>
   <!-- TODO: consider using KCatalogItem from kongponents -->
 
+  <!-- <RouterLink class="service-catalog" :to="'/services/ + '"></RouterLink> -->
   <KCard
     class="service-catalog-item"
     :title="service.name"
@@ -39,6 +40,8 @@
       <KButton
         appearance="secondary"
         size="small"
+        style="min-height: none;"
+        :to="`/services/${service.id}`"
       >
         {{ service.versions.length }} versions
       </KButton>

@@ -39,7 +39,11 @@
         :key="service.id"
         :service="service"
       />
-
+    </div>
+    <div
+      v-if="visibleServices.length"
+      class="d-block"
+    >
       <KPagination
         :items="services"
         :page-sizes="pageSizeOptions"
@@ -58,7 +62,6 @@ import { defineComponent, ref, toValue, computed } from 'vue'
 import useServices from '@/composables/useServices'
 import NoResults from './NoResults.vue'
 import ServiceCatalogItem from './ServiceCatalogItem.vue'
-import { usePagination } from '@/composables/useClientSidePagination'
 import type { Service } from '@/types'
 
 export default defineComponent({
@@ -87,6 +90,7 @@ export default defineComponent({
     // TODO: import PageChangedData type from https://github.com/Kong/kongponents/blob/d5aca1ea0c7956d8459f50c11bce8dbb720741eb/src/components/KPagination/KPagination.vue
     const handlePaginationChange = (input: unknown) => {
       console.log({ input })
+      // @ts-expect-error
       startIndex.value = input.firstItem
     }
 
