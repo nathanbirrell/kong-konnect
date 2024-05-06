@@ -22,11 +22,11 @@ No setup or build tooling was modified. To get started:
 - [x] List ServicePackages as cards
 - [x] Search functionality
 - [x] Pagination functionality
-- [] Build ServiceDetails page
-- [] Add Vue test setup so that Kongponents functions
-- [] Replace any leftover hex colors with CSS variables
-- [] Add E2E test, rather than simply testing component in isolation
-- [] Break down UI elements into more re-usable and focused components
-- [] Move ServiceCatalog list into Pinia store for reusable state management
-- [] Rename usage of `ServiceCatalog` to `ServicePackage` to align with Kong's business entity terminology
-- [] Add functionality for `Create Service Package` button
+- [ ] Build ServiceDetails page
+- [ ] Add Vue test setup so that Kongponents functions
+- [ ] Replace any leftover hex colors with CSS variables
+- [ ] Add E2E test, rather than simply testing component in isolation
+- [ ] Break down UI elements into more re-usable and focused components
+- [ ] Move ServiceCatalog list into Pinia store for reusable state management
+- [ ] Rename usage of `ServiceCatalog` to `ServicePackage` to align with Kong's business entity terminology
+- [ ] Add functionality for `Create Service Package` button
