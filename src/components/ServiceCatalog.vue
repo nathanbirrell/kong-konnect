@@ -30,23 +30,23 @@
       </div>
     </div>
 
-    <ul
-      v-if="services.length"
+    <div
+      v-if="visibleServices.length"
       class="service-catalog-items"
     >
-      <li
-        v-for="service in services"
+      <ServiceCatalogItem
+        v-for="service in visibleServices"
         :key="service.id"
-        class="service"
-      >
-        <div>
-          <p>
-            {{ service.name }}
-          </p>
-          <p>{{ service.description }}</p>
-        </div>
-      </li>
-    </ul>
+        :service="service"
+      />
+
+      <KPagination
+        :items="services"
+        :page-sizes="pageSizeOptions"
+        :total-count="services.length"
+        @page-changed="handlePaginationChange"
+      />
+    </div>
     <NoResults v-else>
       No Services found.
     </NoResults>
@@ -54,24 +54,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, toValue, computed } from 'vue'
 import useServices from '@/composables/useServices'
 import NoResults from './NoResults.vue'
+import ServiceCatalogItem from './ServiceCatalogItem.vue'
+import { usePagination } from '@/composables/useClientSidePagination'
+import type { Service } from '@/types'
 
 export default defineComponent({
   name: 'ServiceCatalog',
-  components: { NoResults },
+  components: { NoResults, ServiceCatalogItem },
   setup() {
     // Set the search string to a Vue ref
     const searchQuery = ref('')
 
+    const pageSizeOptions = [9]
+    const itemsPerPage = ref(pageSizeOptions[0])
+    const startIndex = ref(0)
+
     // Import services from the composable
     const { services, loading } = useServices({ searchQuery })
+
+    // TODO: consider splitting pagination logic from the pagination display logic
+    // const pagination = usePagination({
+    //   rowsPerPage,
+    //   currentPage,
+    //   arrayToPaginate: services,
+    // })
+
+    const visibleServices = computed<Service[]>(() => toValue(services).slice(startIndex.value, startIndex.value + itemsPerPage.value))
+
+    // TODO: import PageChangedData type from https://github.com/Kong/kongponents/blob/d5aca1ea0c7956d8459f50c11bce8dbb720741eb/src/components/KPagination/KPagination.vue
+    const handlePaginationChange = (input: unknown) => {
+      console.log({ input })
+      startIndex.value = input.firstItem
+    }
 
     return {
       services,
       loading,
       searchQuery,
+      visibleServices,
+      pageSizeOptions,
+      handlePaginationChange,
     }
   },
 })
@@ -95,6 +120,7 @@ export default defineComponent({
 
 .service-catalog__controls {
   display: flex;
+  justify-content: flex-end;
   padding-top: 2rem;
 }
 
@@ -102,28 +128,8 @@ export default defineComponent({
   padding: 0;
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 0.25rem;
   list-style: none;
-}
-
-.service {
-  border: 1px solid #999;
-  border-radius: 10px;
-  margin: 6px;
-  padding: 8px 16px;
-
-  p:first-of-type {
-    color: #333;
-    font-weight: 700;
-  }
-
-  p {
-    color: #666;
-  }
-}
-
-input {
-  padding: 8px 4px;
 }
 </style>

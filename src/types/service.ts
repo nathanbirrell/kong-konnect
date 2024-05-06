@@ -10,7 +10,7 @@ export type Version = {
   updated_at: Date;
 }
 
-export type Metric = {
+export type Metrics = {
   latency: number;
   uptime: number;
   requests: number;
@@ -25,5 +25,5 @@ export type Service = {
   published: boolean;
   configured: boolean;
   versions: Version[];
-  metrics: Metric[];
+  metrics: Metrics;
 };

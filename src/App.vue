@@ -40,5 +40,6 @@ body {
   --font-family-sans: 'Roboto'; // custom font-family
   --font-family-mono: 'Roboto Mono'; // custom font-family
   --font-weight-normal: 400; // custom font-weight
+  --kui-font-weight-semibold: 500; // custom font-weight
 }
 </style>
