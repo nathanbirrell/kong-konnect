@@ -4,6 +4,7 @@
   <!-- <RouterLink class="service-catalog" :to="'/services/ + '"></RouterLink> -->
   <KCard
     class="service-catalog-item"
+    data-testid="service-catalog-item-{{ service.id }}"
     :title="service.name"
   >
     <template #statusHat>

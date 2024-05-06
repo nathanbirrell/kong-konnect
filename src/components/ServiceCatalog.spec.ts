@@ -1,12 +1,12 @@
 import { vi, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ServiceCatalog from './ServiceCatalog.vue'
-import servicesData from '../../mocks/services'
+import servicesFixture from '../../mocks/services'
 
 // Mock the axios module for fetching API services
 const mockedResponses = new Map()
   .set('/api/services', vi.fn(() => ({
-    data: servicesData,
+    data: servicesFixture,
   })))
 
 vi.mock('axios', async () => {
@@ -31,14 +31,24 @@ describe('ServiceCatalog', () => {
     expect(wrapper.findTestId('search-input').isVisible()).toBe(true)
   })
 
-  it('properly handles no services returned from the API', async () => {
-    // Provide a custom `mockedResponses` response payload instead of using the default mocked response
-    mockedResponses.get('/api/services').mockReturnValue({
-      data: [],
+  describe('Given a valid list of services returned from the API', () => {
+    it('properly handles no services returned from the API', async () => {
+      const wrapper = mount(ServiceCatalog)
+
+      expect(wrapper.findTestId(`service-catalog-item-${servicesFixture[0].id}`).isVisible()).toBe(true)
     })
+  })
 
-    const wrapper = mount(ServiceCatalog)
+  describe('Given no services returned from the API', () => {
+    it('shows no results', async () => {
+      // Provide a custom `mockedResponses` response payload instead of using the default mocked response
+      mockedResponses.get('/api/services').mockReturnValue({
+        data: [],
+      })
 
-    expect(wrapper.findTestId('no-results').isVisible()).toBe(true)
+      const wrapper = mount(ServiceCatalog)
+
+      expect(wrapper.findTestId('no-results').isVisible()).toBe(true)
+    })
   })
 })
