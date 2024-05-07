@@ -10,7 +10,7 @@ No setup or build tooling was modified. To get started:
 1. `pnpm run dev:server`
 1. `pnpm run dev:ui`
 
-![Screenshot](./docs/screenshot.jpg)
+![App demo](./docs/demo.gif)
 
 ## Assumptions
 
@@ -23,7 +23,8 @@ No setup or build tooling was modified. To get started:
 - [x] List ServicePackages as cards
 - [x] Search functionality
 - [x] Pagination functionality
-- [ ] Build ServiceDetails page
+- [x] Build ServiceDetails page
+- [ ] Make Cards clickable
 - [ ] Add Vue test setup so that Kongponents functions
 - [ ] Replace any leftover hex colors with CSS variables
 - [ ] Add E2E test, rather than simply testing component in isolation
