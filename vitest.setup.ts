@@ -1,4 +1,5 @@
 import { config } from '@vue/test-utils'
+import Kongponents from '@kong/kongponents'
 
 const DataTestIdPlugin = (wrapper: any) => {
   /**
@@ -17,3 +18,5 @@ const DataTestIdPlugin = (wrapper: any) => {
 }
 
 config.plugins.VueWrapper.install(DataTestIdPlugin)
+
+config.plugins.VueWrapper.install(Kongponents)

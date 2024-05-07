@@ -1,6 +1,6 @@
+import Kongponents from '@kong/kongponents'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import Kongponents from '@kong/kongponents'
 import App from './App.vue'
 import router from './router'
 
