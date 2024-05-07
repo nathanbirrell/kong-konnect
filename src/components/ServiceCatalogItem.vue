@@ -41,7 +41,7 @@
       <KButton
         appearance="secondary"
         size="small"
-        style="min-height: none;"
+        style="min-height: none"
         :to="`/services/${service.id}`"
       >
         {{ service.versions.length }} versions
@@ -61,9 +61,17 @@
         v-if="service.metrics"
         class="metrics"
       >
-        <div><span class="status" /> <b>{{ formattedMetrics?.latency }}</b> latency</div>
-        <div><span class="status" /> <b>{{ formattedMetrics?.uptime }}</b> uptime</div>
-        <div><span class="status" /> <b>{{ formattedMetrics?.requests }}</b> requests • <b>{{ formattedMetrics?.errors }}</b> errors</div>
+        <div>
+          <span class="status" /> <b>{{ formattedMetrics?.latency }}</b> latency
+        </div>
+        <div>
+          <span class="status" /> <b>{{ formattedMetrics?.uptime }}</b> uptime
+        </div>
+        <div>
+          <span class="status" />
+          <b>{{ formattedMetrics?.requests }}</b> requests •
+          <b>{{ formattedMetrics?.errors }}</b> errors
+        </div>
       </div>
     </template>
   </KCard>
@@ -71,8 +79,7 @@
 
 <script setup lang="ts">
 import type { Service } from '@/types'
-import { computed } from 'vue'
-import numeral from 'numeral'
+import { useFormatServiceMetrics } from '@/composables/useFormatServiceMetrics'
 
 interface Props {
   service: Service;
@@ -80,17 +87,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const formattedMetrics = computed(() => {
-  if (!props.service.metrics) return undefined
-
-  return {
-    latency: `${props.service.metrics.latency}ms`,
-    requests: `${numeral(props.service.metrics.requests).format('0a')}`,
-    uptime: `${numeral(props.service.metrics.uptime).format('0%')}`,
-    errors: `${numeral(props.service.metrics.errors).format('0%')}`,
-  }
-})
-
+const formattedMetrics = useFormatServiceMetrics(props.service.metrics)
 </script>
 
 <style>
@@ -105,17 +102,22 @@ const formattedMetrics = computed(() => {
     color: var(--grey-500);
 
     .status {
-        /* TODO: break out into seperate component */
-        /* TODO: support postive/neutral/negative status */
-        background-color: var(--green-400);
-        border-radius: 50%;
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        margin-bottom: 1px;
-        margin-right: 0.25rem;
-        margin-left: 0.25rem;
+      /* TODO: break out into seperate component */
+      /* TODO: support postive/neutral/negative status */
+      background-color: var(--green-400);
+      border-radius: 50%;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-bottom: 1px;
+      margin-right: 0.25rem;
+      margin-left: 0.25rem;
     }
   }
+
+}
+
+.service-catalog-item.kong-card .k-card-header .k-button {
+  min-height: 0;
 }
 </style>

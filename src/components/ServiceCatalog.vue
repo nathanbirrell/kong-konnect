@@ -85,7 +85,12 @@ export default defineComponent({
     //   arrayToPaginate: services,
     // })
 
-    const visibleServices = computed<Service[]>(() => toValue(services).slice(startIndex.value, startIndex.value + itemsPerPage.value))
+    const visibleServices = computed<Service[]>(() =>
+      toValue(services).slice(
+        startIndex.value,
+        startIndex.value + itemsPerPage.value,
+      ),
+    )
 
     // TODO: import PageChangedData type from https://github.com/Kong/kongponents/blob/d5aca1ea0c7956d8459f50c11bce8dbb720741eb/src/components/KPagination/KPagination.vue
     const handlePaginationChange = (input: unknown) => {
@@ -135,5 +140,10 @@ export default defineComponent({
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 0.25rem;
   list-style: none;
+
+  // TODO: setup app-wide breakpoints and use variable here
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>
