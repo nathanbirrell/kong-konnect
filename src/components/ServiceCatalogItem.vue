@@ -1,7 +1,5 @@
 <template>
   <!-- TODO: consider using KCatalogItem from kongponents -->
-
-  <!-- <RouterLink class="service-catalog" :to="'/services/ + '"></RouterLink> -->
   <KCard
     class="service-catalog-item"
     data-testid="service-catalog-item-{{ service.id }}"
@@ -55,6 +53,15 @@
         :rows="3"
       >
         {{ service.description }}
+
+        <!-- TODO: find an appropriate icon for expand/collapse -->
+        <!-- https://kongponents.konghq.com/components/truncate.html#collapse-trigger -->
+        <template #expand-trigger="">
+          &nbsp;
+        </template>
+        <template #collapse-trigger="">
+          &nbsp;
+        </template>
       </KTruncate>
 
       <div
@@ -72,6 +79,15 @@
           <b>{{ formattedMetrics?.requests }}</b> requests •
           <b>{{ formattedMetrics?.errors }}</b> errors
         </div>
+      </div>
+
+      <div class="details-link">
+        <RouterLink
+          class="color-grey-500"
+          :to="`/services/${service.id}`"
+        >
+          Service details &rsaquo;
+        </RouterLink>
       </div>
     </template>
   </KCard>
@@ -100,6 +116,7 @@ const formattedMetrics = useFormatServiceMetrics(props.service.metrics)
 
   .metrics {
     color: var(--grey-500);
+    margin-top: 1rem;
 
     .status {
       /* TODO: break out into seperate component */
@@ -115,6 +132,17 @@ const formattedMetrics = useFormatServiceMetrics(props.service.metrics)
     }
   }
 
+  .details-link {
+    /* TODO: this link should anchor to the bottom, but do do so, we need to hack Card.body */
+    font-size: var(--text-sm);
+    font-weight: 500;
+    margin-top: 1rem;
+
+    a {
+      color: var(--blue-500);
+      text-decoration: none;
+    }
+  }
 }
 
 .service-catalog-item.kong-card .k-card-header .k-button {

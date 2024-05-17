@@ -40,20 +40,22 @@
         :service="service"
       />
     </div>
-    <div
-      v-if="visibleServices.length"
-      class="d-block"
-    >
-      <KPagination
-        :items="services"
-        :page-sizes="pageSizeOptions"
-        :total-count="services.length"
-        @page-changed="handlePaginationChange"
-      />
-    </div>
+
     <NoResults v-else>
       No Services found.
     </NoResults>
+  </div>
+
+  <div
+    v-if="visibleServices.length"
+    class="d-block mt-1 mx-6"
+  >
+    <KPagination
+      :items="services"
+      :page-sizes="pageSizeOptions"
+      :total-count="services.length"
+      @page-changed="handlePaginationChange"
+    />
   </div>
 </template>
 
